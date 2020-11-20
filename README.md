@@ -1,6 +1,6 @@
 # ProtonNotes
 
-A new Flutter project.
+Una aplicación de notas con colores e iconos
 
 ## Getting Started
 
