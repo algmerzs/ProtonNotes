@@ -3,6 +3,9 @@ import 'package:ProtonNotes/pages/profile.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatelessWidget {
+  final String user;
+
+  const MainDrawer(this.user);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,7 +16,7 @@ class MainDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.person),
               title: Text(
-                'Mariana Zapata',
+                user,
                 style: Theme.of(context).textTheme.headline2,
               ),
               onTap: () {
@@ -21,7 +24,7 @@ class MainDrawer extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => Profile(),
+                    builder: (BuildContext context) => Profile(user),
                   ),
                 );
               },

@@ -1,6 +1,10 @@
+import 'package:ProtonNotes/pages/login.dart';
 import 'package:flutter/material.dart';
 
 class Profile extends StatelessWidget {
+  final String user;
+
+  const Profile(this.user);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +22,7 @@ class Profile extends StatelessWidget {
                   width: 200,
                 ),
                 Text(
-                  'Mariana Zapata',
+                  user,
                   style: Theme.of(context).textTheme.headline2,
                 ),
                 Text('Aprendiz', style: Theme.of(context).textTheme.headline2),
@@ -32,7 +36,13 @@ class Profile extends StatelessWidget {
                 ),
                 FlatButton(
                   color: Colors.grey[900],
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => LoginPage(),
+                        ),
+                        (Route<dynamic> route) => false);
+                  },
                   child: Text(
                     'Cerrar Sesión',
                     style: Theme.of(context).textTheme.headline1,

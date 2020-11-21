@@ -6,6 +6,9 @@ import 'package:ProtonNotes/utils/widgets/protonNote_item_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  final String user;
+
+  const HomePage(this.user);
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => Profile(),
+                    builder: (BuildContext context) => Profile(widget.user),
                   ),
                 );
               },
@@ -45,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(width: 20.0)
           ],
         ),
-        drawer: MainDrawer(),
+        drawer: MainDrawer(widget.user),
         body: ListView.builder(
             itemCount: _listProtonNote.length,
             itemBuilder: (BuildContext context, int index) {
@@ -82,18 +85,26 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Borrar Nota'),
+        titleTextStyle: Theme.of(context).textTheme.headline2,
         content: Text('¿Estas seguro de eliminar este nota?'),
+        contentTextStyle: Theme.of(context).textTheme.headline2,
         actions: [
           TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('CANCELAR')),
+              child: Text(
+                'CANCELAR',
+                style: Theme.of(context).textTheme.headline5,
+              )),
           TextButton(
             onPressed: () {
               _deleteProtonNote(index);
             },
-            child: Text('ACEPTAR'),
+            child: Text(
+              'ACEPTAR',
+              style: Theme.of(context).textTheme.headline5,
+            ),
           ),
         ],
       ),

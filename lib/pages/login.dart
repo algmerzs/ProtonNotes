@@ -1,7 +1,15 @@
 import 'package:ProtonNotes/pages/principal_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController _userController = TextEditingController();
+  String _userError;
+  bool hasError = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +37,15 @@ class LoginPage extends StatelessWidget {
                 width: 100,
               ),
               TextField(
+                style: Theme.of(context).textTheme.headline3,
+                controller: _userController,
+                textCapitalization: TextCapitalization.sentences,
                 decoration: InputDecoration(
+                    errorText: _userError,
+                    errorStyle: TextStyle(
+                        backgroundColor: Colors.white,
+                        fontFamily: 'quicksand',
+                        fontSize: 18.0),
                     hintText: 'Usuario',
                     hintStyle: Theme.of(context).textTheme.headline1,
                     border: OutlineInputBorder(),
@@ -40,7 +56,7 @@ class LoginPage extends StatelessWidget {
               TextField(
                 style: Theme.of(context).textTheme.headline3,
                 decoration: InputDecoration(
-                    hintText: 'Usuario',
+                    hintText: 'Contraseña',
                     hintStyle: Theme.of(context).textTheme.headline1,
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.security),
@@ -50,12 +66,7 @@ class LoginPage extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
+                  _validateUser();
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -74,5 +85,20 @@ class LoginPage extends StatelessWidget {
         )
       ],
     ));
+  }
+
+  _validateUser() {
+    if (_userController.text.trim().isEmpty) {
+      setState(() {
+        _userError = 'Por favor, coloca un usuario';
+      });
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(_userController.text),
+        ),
+      );
+    }
   }
 }
